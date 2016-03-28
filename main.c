@@ -44,34 +44,34 @@ void shortcut(int a,int (*arr)[3],int player)
 {
     if(a==1)
     {
-        arr[0][0]=(int *)player;
+        arr[0][0]=(int)player;
     }else if(a==2)
     {
-        arr[0][1]=(int *)player;
+        arr[0][1]=(int)player;
     }else if(a==3)
     {
-        arr[0][2]=(int *)player;
+        arr[0][2]=(int)player;
     }else if(a==4)
     {
-        arr[1][0]=(int *)player;
+        arr[1][0]=(int)player;
     }else if(a==5)
     {
-        arr[1][1]=(int *)player;
+        arr[1][1]=(int)player;
     }else if(a==6)
     {
-        arr[1][2]=(int *)player;
+        arr[1][2]=(int)player;
     }else if(a==7)
     {
-        arr[2][0]=(int *)player;
+        arr[2][0]=(int)player;
     }else if(a==8)
     {
-        arr[2][1]=(int *)player;
+        arr[2][1]=(int)player;
     }else if(a==9)
     {
-        arr[2][2]=(int *)player;
+        arr[2][2]=(int)player;
     }
 }
-void move(int *arr[3][3],int z1,int p1,int player)
+void move(int (*arr)[3],int z1,int p1,int player)
 {
 
     shortcut(z1,arr,0);
@@ -81,7 +81,7 @@ void move(int *arr[3][3],int z1,int p1,int player)
 
 }
 
-void checklala(int i,int j,int *arr[3],int player,int *arr2[9][8],int *a)
+void checklala(int i,int j,int *arr[3],int player,int (*arr2)[8],int *a)
 {
     if(player==shortcut2(i,arr))// player 2 1 a zete parbena & player 1 2 te zete parbena.
     {
