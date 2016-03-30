@@ -1,7 +1,400 @@
 #include<stdio.h>
 #include<windows.h>
 #include<string.h>
+void Exit();
+int menu();
+void display(int (*position)[3],int name1,int name2,int player1_count,int player2_count);
+int shortcut2(int a,int *arr[3][3]);
+void shortcut(int a,int *arr[3][3],int player);
+void move(int *arr[3][3],int z1,int p1,int player);
+void checklala(int i,int j,int *arr[3][3],int player,int *arr2[9][8],int *a);
+void loading();
 
+
+int main()
+{
+    int position[3][3],player=0,k,l;
+    int i,j,mod=0;
+    int a;
+    char name1[30];
+    char name2[30];
+    char name3[30];
+    char name4[30];
+    int player1_count=0,player2_count=0;
+    system("COLOR 1A");
+    printf("\t\t\t..WELCOME TO GUTI-BAJ..\n\n");
+
+    loading();
+    system("cls");
+    int menu_item=menu();
+
+
+
+X :
+    system("cls");
+    getchar();
+    switch(menu_item)
+    {
+        case 1:
+        system("cls");
+        printf("\t\t\t..GUTI-BAJ..\n\n\n");
+        printf("Enter 1st player name: ");
+        gets(name1);
+        strcpy(name3,name1);
+        printf("Enter 2nd player name: ");
+        gets(name2);
+        strcpy(name4,name2);
+        int length1;
+        length1=strlen(name1);
+        char str1[30];
+        int fuc;
+        for(fuc=0;fuc<13-length1;fuc++)
+        {
+            str1[fuc]=' ';
+
+        }
+        str1[13-length1]='\0';
+        strcat(name1,str1);
+        int length2;
+        length2=strlen(name2);
+        char str2[30];
+        for(fuc=0;fuc<13-length2;fuc++)
+        {
+            str2[fuc]=' ';
+        }
+        str2[13-length2]='\0';
+        strcat(name2,str2);
+
+        for(;;)
+        {
+            system("cls");
+            position[0][0]=1;
+            position[0][1]=1;
+            position[0][2]=1;
+            position[1][0]=0;
+            position[1][1]=0;
+            position[1][2]=0;
+            position[2][0]=2;
+            position[2][1]=2;
+            position[2][2]=2;
+
+
+
+            int A[9][8] = { { 2,4,5,0,0, 0, 0, 0 },
+                { 1,3,5,0,0, 0, 0, 0 },
+                { 2,5,6,0,0, 0, 0, 0 },
+                { 1,5,7,0,0, 0, 0, 0 } ,
+                { 1,2,3,4,6, 7, 8, 9 } ,
+                { 3,5,9,0,0, 0, 0, 0 } ,
+                { 4,5,8,0,0, 0, 0, 0 } ,
+                { 5,7,9,0,0, 0, 0, 0 } ,
+                { 5,6,8,0,0, 0, 0, 0 }
+
+                };
+                display(position,name1,name2,player1_count,player2_count);
+
+
+
+               /* printf("\n\n");
+                for(i=0;i<3;i++)
+                {
+                    for(j=0;j<3;j++)
+                    {
+                        printf("%d ",position[i][j]);
+                    }
+                    printf("\n\n");
+                }
+                */
+                for(;;)
+                {
+
+
+                    if(a%2==0)
+                    {
+                        player=1;
+                        printf("%s's turn: \n",name3);
+                        printf("Move point: ");
+                        scanf("%d",&i);
+                        system("cls");
+                        //shortcut(i,position);
+                        display(position,name1,name2,player1_count,player2_count);
+                        printf("%s's turn: \n",name3);
+                        printf("Where to move: ");
+                        scanf("%d",&k);
+                        //shortcut(k,position);
+                        checklala(i,k,position,player,A,&a);
+
+                    }
+                    else
+                    {
+                        player=2;
+                        printf("%s's turn: \n",name4);
+                        printf("Move point: ");
+                        scanf("%d",&i);
+                        system("cls");
+
+                        display(position,name1,name2,player1_count,player2_count);
+                        printf("%s's turn: \n",name4);
+                        printf("Where to move: ");
+                        scanf("%d",&k);
+                        checklala(i,k,position,player,A,&a);
+                    }
+
+
+   // system("cls");
+
+                    display(position,name1,name2,player1_count,player2_count);
+                  /*  for(i=0;i<3;i++)
+                    {
+                        for(j=0;j<3;j++)
+                        {
+                            printf("%d ",position[i][j]);
+                        }
+                        printf("\n\n");
+                    }
+                    */
+
+                    if((position[0][0]==1&&position[1][0]==1&&position[2][0]==1)||
+                    (position[0][1]==1&&position[1][1]==1&&position[2][1]==1)||
+                    (position[0][2]==1&&position[1][2]==1&&position[2][2]==1)||
+                    (position[0][0]==1&&position[1][1]==1&&position[2][2]==1)||
+                    (position[0][2]==1&&position[1][1]==1&&position[2][0]==1)||
+                    (position[2][0]==1&&position[2][1]==1&&position[2][2]==1)||//player one 1st position skip
+                    (position[1][0]==1&&position[1][1]==1&&position[1][2]==1))
+                    {
+                        system("cls");
+
+
+                           player1_count++;
+                           printf("\n\n\n\n\n\t\t\t%s you gain %d point\n",name3,player1_count);
+                           Sleep(3000);
+
+                           position[0][0]=1;
+                           position[0][1]=1;
+                           position[0][2]=1;
+                           position[1][0]=0;
+                           position[1][1]=0;
+                           position[1][2]=0;
+                           position[2][0]=2;
+                           position[2][1]=2;
+                           position[2][2]=2;
+                           player=0;
+                           mod++;
+                           a=mod;
+                            display(position,name1,name2,player1_count,player2_count);
+                    if(player1_count>=0)
+                    {
+                       a=0;
+                       mod=0;
+                       player1_count=0;
+                       int win1;
+                        system("cls");
+                        printf("\n\n\n\n\n\t\t\t%s you are win !!!!!!!\n",name3);
+                        printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+                        printf("\t\t\t   %c                      %c\n",177,177);
+                        printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
+                        printf("\t\t\t   %c                      %c\n",177,177);
+                        printf("\t\t\t   %c  2. Exit             %c\n",177,177);
+                        printf("\t\t\t   %c                      %c\n",177,177);
+                        printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+                        printf("\n");
+                        printf("\t\t\t    Choose your Options :");
+                        scanf("%d",&win1);
+                        system("cls");
+                        if(win1==1)
+                        {
+                            menu_item=menu();
+                            goto X;
+                        }
+                        else if(win1==2)
+                            Exit();
+                    }
+
+                }
+                else if((position[0][0]==2&&position[1][0]==2&&position[2][0]==2)||
+               (position[0][1]==2&&position[1][1]==2&&position[2][1]==2)||
+               (position[0][2]==2&&position[1][2]==2&&position[2][2]==2)||
+               (position[0][0]==2&&position[1][1]==2&&position[2][2]==2)||
+               (position[0][2]==2&&position[1][1]==2&&position[2][0]==2)||
+               (position[0][0]==2&&position[0][1]==2&&position[0][2]==2)||//plyer two 1st postion skip
+               (position[1][0]==2&&position[1][1]==2&&position[1][2]==2))
+                {
+                   system("cls");
+                  player2_count++;
+                   printf("\n\n\n\n\n\n\t\t\t  %s you gain %d point\n",name4,player2_count);
+                   Sleep(3000);
+                   position[0][0]=1;
+                   position[0][1]=1;
+                   position[0][2]=1;
+                   position[1][0]=0;
+                   position[1][1]=0;
+                   position[1][2]=0;
+                   position[2][0]=2;
+                   position[2][1]=2;
+                   position[2][2]=2;
+                   player=0;
+                   mod++;
+                   a=mod;
+                    display(position,name1,name2,player1_count,player2_count);
+
+                    if(player2_count>=0)
+                    {
+                        a=0;
+                        mod=0;
+                        player2_count=0;
+                        system("cls");
+                        printf("\n\n\n\n\n\t\t\t%s you are win !!!!!!!\n",name4);
+                        printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+                        printf("\t\t\t   %c                      %c\n",177,177);
+                        printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
+                        printf("\t\t\t   %c                      %c\n",177,177);
+                        printf("\t\t\t   %c  2. Exit             %c\n",177,177);
+                        printf("\t\t\t   %c                      %c\n",177,177);
+                        printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+                        printf("\n");
+                        printf("\t\t\t    Choose your Options :");
+                        int win2;
+                        scanf("%d",&win2);
+                        system("cls");
+                        if(win2==1)
+                        {
+                            menu_item=menu();
+                            goto X;
+                        }
+                        else if(win2==2)
+                            Exit();
+
+                    }
+                }
+            }
+
+
+
+
+        }
+
+        break;//TODO: Indent thik korte hobe ekhan theke
+        case 2:
+             system("cls");
+             int x1;
+             printf("\n\n\t\t\t\t  1.BILLAH\n\t\t\t\t  2.Joy\n\t\t\t\t  3.Rajib\n");
+             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\n");
+             printf("\t\t\t    Choose your Options :");
+             scanf("%d",&x1);
+             system("cls");
+             if(x1==1)
+             {
+                menu_item=menu();
+                goto X;
+             }
+             else if(x1==2)
+             Exit();
+             break;
+        case 3:
+            system("cls");
+             int x2;
+             printf("\n\n\n\n\n\t\t\t   ************************\n");
+             printf("\t\t\t   ************************\n");
+             printf("\t\t\t   *                      *\n");
+             printf("\t\t\t   *  1. Return Main Menu *\n");
+             printf("\t\t\t   *  2. Exit             *\n");
+             printf("\t\t\t   *                      *\n");
+             printf("\t\t\t   ************************\n");
+             printf("\t\t\t   ************************\n");
+             printf("\t\t\t    Choose your Options :");
+             scanf("%d",&x2);
+             system("cls");
+             if(x2==1)
+             {
+                menu_item=menu();
+                goto X;
+             }
+             else if(x2==2)
+             Exit();
+             break;
+        case 4:
+            system("cls");
+             int x3;
+             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\n");
+             printf("\t\t\t    Choose your Options :");
+             scanf("%d",&x3);
+             system("cls");
+             if(x3==1)
+             {
+                menu_item=menu();
+                goto X;
+             }
+             else if(x3==2)
+             Exit();
+             break;
+        case 5:
+            system("cls");
+             int x4;
+             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\n");
+             printf("\t\t\t    Choose your Options :");
+             scanf("%d",&x4);
+             system("cls");
+             if(x4==1)
+             {
+                menu_item=menu();
+                goto X;
+             }
+             else if(x4==2)
+             Exit();
+             break;
+        case 6:
+            system("cls");
+             int x5;
+            printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
+             printf("\t\t\t   %c                      %c\n",177,177);
+             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+             printf("\n");
+             printf("\t\t\t    Choose your Options :");
+             scanf("%d",&x5);
+             system("cls");
+             if(x5==1)
+             {
+                menu_item=menu();
+                goto X;
+             }
+             else if(x5==2)
+             Exit();
+             break;
+        case 7:
+             system("cls");
+             Exit();
+             break;
+
+
+}
+
+return 0;
+}
 void Exit()
 {
     system("cls");
@@ -231,391 +624,3 @@ for(p=0;p<=42;p++)
 printf("%c",199);
 }
 }
-
-int main()
-{
-    int position[3][3],player=0,k,l;
-    int i,j,mod=0;
-    int a;
-    char name1[30];
-    char name2[30];
-    char name3[30];
-    char name4[30];
-    int player1_count=0,player2_count=0;
-    system("COLOR 1A");
-printf("\t\t\t..WELCOME TO GUTI-BAJ..\n\n");
-
-loading();
-system("cls");
-    int menu_item=menu();
-
-
-
-X :
-    system("cls");
-getchar();
-switch(menu_item)
-{
-    case 1:
-    system("cls");
-    printf("\t\t\t..GUTI-BAJ..\n\n\n");
-    printf("Enter 1st player name: ");
-    gets(name1);
-    strcpy(name3,name1);
-    printf("Enter 2nd player name: ");
-    gets(name2);
-    strcpy(name4,name2);
-    int length1;
-    length1=strlen(name1);
-   char str1[30];
-    int fuc;
-    for(fuc=0;fuc<13-length1;fuc++)
-    {
-        str1[fuc]=' ';
-
-    }
-    str1[13-length1]='\0';
-    strcat(name1,str1);
-    int length2;
-    length2=strlen(name2);
-   char str2[30];
-    for(fuc=0;fuc<13-length2;fuc++)
-    {
-        str2[fuc]=' ';
-    }
-    str2[13-length2]='\0';
-    strcat(name2,str2);
-
-for(;;)
-{
-    system("cls");
-    position[0][0]=1;
-    position[0][1]=1;
-    position[0][2]=1;
-    position[1][0]=0;
-    position[1][1]=0;
-    position[1][2]=0;
-    position[2][0]=2;
-    position[2][1]=2;
-    position[2][2]=2;
-
-
-
-int    A[9][8] = { { 2,4,5,0,0, 0, 0, 0 },
-                { 1,3,5,0,0, 0, 0, 0 },
-                { 2,5,6,0,0, 0, 0, 0 },
-                { 1,5,7,0,0, 0, 0, 0 } ,
-                { 1,2,3,4,6, 7, 8, 9 } ,
-                { 3,5,9,0,0, 0, 0, 0 } ,
-                { 4,5,8,0,0, 0, 0, 0 } ,
-                { 5,7,9,0,0, 0, 0, 0 } ,
-                { 5,6,8,0,0, 0, 0, 0 }
-
-                };
-  display(position,name1,name2,player1_count,player2_count);
-
-
-
-   /* printf("\n\n");
-    for(i=0;i<3;i++)
-    {
-        for(j=0;j<3;j++)
-        {
-            printf("%d ",position[i][j]);
-        }
-        printf("\n\n");
-    }
-    */
-    for(;;)
-    {
-
-
-        if(a%2==0)
-        {
-            player=1;
-            printf("%s's turn: \n",name3);
-            printf("Move point: ");
-            scanf("%d",&i);
-            system("cls");
-            //shortcut(i,position);
-            display(position,name1,name2,player1_count,player2_count);
-            printf("%s's turn: \n",name3);
-            printf("Where to move: ");
-            scanf("%d",&k);
-            //shortcut(k,position);
-            checklala(i,k,position,player,A,&a);
-
-        }
-        else
-        {
-            player=2;
-            printf("%s's turn: \n",name4);
-            printf("Move point: ");
-            scanf("%d",&i);
-            system("cls");
-
-            display(position,name1,name2,player1_count,player2_count);
-            printf("%s's turn: \n",name4);
-            printf("Where to move: ");
-            scanf("%d",&k);
-            checklala(i,k,position,player,A,&a);
-        }
-
-
-   // system("cls");
-
- display(position,name1,name2,player1_count,player2_count);
-  /*  for(i=0;i<3;i++)
-    {
-        for(j=0;j<3;j++)
-        {
-            printf("%d ",position[i][j]);
-        }
-        printf("\n\n");
-    }
-    */
-
-    if((position[0][0]==1&&position[1][0]==1&&position[2][0]==1)||
-       (position[0][1]==1&&position[1][1]==1&&position[2][1]==1)||
-       (position[0][2]==1&&position[1][2]==1&&position[2][2]==1)||
-       (position[0][0]==1&&position[1][1]==1&&position[2][2]==1)||
-       (position[0][2]==1&&position[1][1]==1&&position[2][0]==1)||
-       (position[2][0]==1&&position[2][1]==1&&position[2][2]==1)||//player one 1st position skip
-       (position[1][0]==1&&position[1][1]==1&&position[1][2]==1))
-       {
-           system("cls");
-
-
-           player1_count++;
-           printf("\n\n\n\n\n\t\t\t%s you gain %d point\n",name3,player1_count);
-           Sleep(3000);
-
-           position[0][0]=1;
-           position[0][1]=1;
-           position[0][2]=1;
-           position[1][0]=0;
-           position[1][1]=0;
-           position[1][2]=0;
-           position[2][0]=2;
-           position[2][1]=2;
-           position[2][2]=2;
-           player=0;
-           mod++;
-           a=mod;
-            display(position,name1,name2,player1_count,player2_count);
-           if(player1_count>=0)
-           {
-               a=0;
-               mod=0;
-               player1_count=0;
-               int win1;
-            system("cls");
-          printf("\n\n\n\n\n\t\t\t%s you are win !!!!!!!\n",name3);
-           printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\n");
-             printf("\t\t\t    Choose your Options :");
-             scanf("%d",&win1);
-             system("cls");
-             if(win1==1)
-             {
-                menu_item=menu();
-                goto X;
-             }
-             else if(win1==2)
-             Exit();
-           }
-
-       }
-       else if((position[0][0]==2&&position[1][0]==2&&position[2][0]==2)||
-       (position[0][1]==2&&position[1][1]==2&&position[2][1]==2)||
-       (position[0][2]==2&&position[1][2]==2&&position[2][2]==2)||
-       (position[0][0]==2&&position[1][1]==2&&position[2][2]==2)||
-       (position[0][2]==2&&position[1][1]==2&&position[2][0]==2)||
-       (position[0][0]==2&&position[0][1]==2&&position[0][2]==2)||//plyer two 1st postion skip
-       (position[1][0]==2&&position[1][1]==2&&position[1][2]==2))
-       {
-           system("cls");
-          player2_count++;
-           printf("\n\n\n\n\n\n\t\t\t  %s you gain %d point\n",name4,player2_count);
-           Sleep(3000);
-           position[0][0]=1;
-           position[0][1]=1;
-           position[0][2]=1;
-           position[1][0]=0;
-           position[1][1]=0;
-           position[1][2]=0;
-           position[2][0]=2;
-           position[2][1]=2;
-           position[2][2]=2;
-           player=0;
-           mod++;
-           a=mod;
-            display(position,name1,name2,player1_count,player2_count);
-
-
-
-          if(player2_count>=0)
-          {
-               a=0;
-               mod=0;
-               player2_count=0;
-           system("cls");
-           printf("\n\n\n\n\n\t\t\t%s you are win !!!!!!!\n",name4);
-           printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\n");
-             printf("\t\t\t    Choose your Options :");
-             int win2;
-             scanf("%d",&win2);
-             system("cls");
-             if(win2==1)
-             {
-                menu_item=menu();
-                goto X;
-             }
-             else if(win2==2)
-             Exit();
-
-          }
-       }
-    }
-
-
-
-
-}
-
-break;
-    case 2:
-             system("cls");
-             int x1;
-             printf("\n\n\t\t\t\t  1.BILLAH\n\t\t\t\t  2.Joy\n\t\t\t\t  3.Rajib\n");
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\n");
-             printf("\t\t\t    Choose your Options :");
-             scanf("%d",&x1);
-             system("cls");
-             if(x1==1)
-             {
-                menu_item=menu();
-                goto X;
-             }
-             else if(x1==2)
-             Exit();
-             break;
-    case 3:
-            system("cls");
-             int x2;
-             printf("\n\n\n\n\n\t\t\t   ************************\n");
-             printf("\t\t\t   ************************\n");
-             printf("\t\t\t   *                      *\n");
-             printf("\t\t\t   *  1. Return Main Menu *\n");
-             printf("\t\t\t   *  2. Exit             *\n");
-             printf("\t\t\t   *                      *\n");
-             printf("\t\t\t   ************************\n");
-             printf("\t\t\t   ************************\n");
-             printf("\t\t\t    Choose your Options :");
-             scanf("%d",&x2);
-             system("cls");
-             if(x2==1)
-             {
-                menu_item=menu();
-                goto X;
-             }
-             else if(x2==2)
-             Exit();
-             break;
-    case 4:
-            system("cls");
-             int x3;
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\n");
-             printf("\t\t\t    Choose your Options :");
-             scanf("%d",&x3);
-             system("cls");
-             if(x3==1)
-             {
-                menu_item=menu();
-                goto X;
-             }
-             else if(x3==2)
-             Exit();
-             break;
-    case 5:
-            system("cls");
-             int x4;
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\n");
-             printf("\t\t\t    Choose your Options :");
-             scanf("%d",&x4);
-             system("cls");
-             if(x4==1)
-             {
-                menu_item=menu();
-                goto X;
-             }
-             else if(x4==2)
-             Exit();
-             break;
-    case 6:
-            system("cls");
-             int x5;
-            printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c  2. Exit             %c\n",177,177);
-             printf("\t\t\t   %c                      %c\n",177,177);
-             printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-             printf("\n");
-             printf("\t\t\t    Choose your Options :");
-             scanf("%d",&x5);
-             system("cls");
-             if(x5==1)
-             {
-                menu_item=menu();
-                goto X;
-             }
-             else if(x5==2)
-             Exit();
-             break;
-    case 7:
-             system("cls");
-             Exit();
-             break;
-
-
-}
-
-return 0;
-}
-
