@@ -53,6 +53,7 @@ int main()
             loading();
             system("cls");
             printf("\n\n\n\n\t\t\t\t   ..GUTI-BAJ..\n\n\n");
+            //......Getting Player Name..........
             printf("\t\t\t  Enter 1st player name: ");
             gets(name1);
             strcpy(name3,name1);
@@ -62,26 +63,29 @@ int main()
             int length1;
             length1=strlen(name1);
             char str1[30];
-            int fuc;
-            for(fuc=0;fuc<13-length1;fuc++)
+            int name_iterator;
+            //........Name Space solver for scoreboard..........//
+            for(name_iterator=0;name_iterator<13-length1;name_iterator++)
             {
-                str1[fuc]=' ';
+                str1[name_iterator]=' ';
             }
             str1[13-length1]='\0';
+            //....Putting Space into name ........
             strcat(name1,str1);
             int length2;
             length2=strlen(name2);
             char str2[30];
-            for(fuc=0;fuc<13-length2;fuc++)
+            for(name_iterator=0;name_iterator<13-length2;name_iterator++)
             {
-                str2[fuc]=' ';
+                str2[name_iterator]=' ';
             }
             str2[13-length2]='\0';
             strcat(name2,str2);
-
+            //.........Game Started here.......
             for(;;)
             {
                 system("cls");
+                //........Set Player pawns default.........
                 position[0][0]=1;
                 position[0][1]=1;
                 position[0][2]=1;
@@ -91,7 +95,7 @@ int main()
                 position[2][0]=2;
                 position[2][1]=2;
                 position[2][2]=2;
-
+                //..........Movement restriction here............
                 int    A[9][8] = { { 2,4,5,0,0, 0, 0, 0 },
                 { 1,3,5,0,0, 0, 0, 0 },
                 { 2,5,6,0,0, 0, 0, 0 },
@@ -106,6 +110,8 @@ int main()
                 display(position,name1,name2,player1_count,player2_count);
                 for(;;)
                 {
+                   //.... Mod for changing player Turns........
+                   //... 1st Player turn........
                     if(a%2==0)
                     {
                         player=1;
@@ -120,6 +126,7 @@ int main()
                         checklala(i,k,position,player,A,&a);
                     }
                     else
+                        //.....2nd Player turns............
                     {
                         player=2;
                         printf("%s's turn: \n",name4);
@@ -133,6 +140,7 @@ int main()
                         checklala(i,k,position,player,A,&a);
                     }
                     display(position,name1,name2,player1_count,player2_count);
+                    //......Checking Player's win or not..........
 
                     if((position[0][0]==1&&position[1][0]==1&&position[2][0]==1)||
                     (position[0][1]==1&&position[1][1]==1&&position[2][1]==1)||
@@ -146,6 +154,7 @@ int main()
                         player1_count++;
                         printf("\n\n\n\n\n\n\n\n \t\t\t***  %s you get [ %d ] point ***\n",name3,player1_count);
                         Sleep(3000);
+                        //....Reset position of pawns to default..........
                         position[0][0]=1;
                         position[0][1]=1;
                         position[0][2]=1;
@@ -156,9 +165,10 @@ int main()
                         position[2][1]=2;
                         position[2][2]=2;
                         player=0;
-                        mod++;
+                        mod++;// Changing players turns after win or lose.....
                         a=mod;
                         display(position,name1,name2,player1_count,player2_count);
+                        //......After wining 3 times to get victory.......
                         if(player1_count>=3)
                         {
                             a=0;
@@ -169,6 +179,7 @@ int main()
                             printf("\n\n\n\n\n\n\n\n\t\t\t    The winner is: %s  !!!!\n",name3);
                             Sleep(3000);
                             system("cls");
+                            //........Confirming for saving game information...........
                             do_you_save();
                             int yesno1;
                             scanf("%d",&yesno1);
@@ -177,16 +188,17 @@ int main()
                                 record(name3,name4);
                             }
                             system("cls");
+                            //...Showing return menu.........
                             Y: ret_menu();
                             scanf("%d",&win1);
                             system("cls");
                             if(win1==1)
                             {
-                                menu_item=menu();
+                                menu_item=menu();//......Menu item show........
                                 goto X;
                             }
                             else if(win1==2)
-                                Exit();
+                                Exit();//........For exit...........
                             else
                             {
                                 error();
@@ -196,6 +208,7 @@ int main()
                         }
 
                     }
+                    //.........Checking 2nd player win or not..........
                     else if((position[0][0]==2&&position[1][0]==2&&position[2][0]==2)||
                     (position[0][1]==2&&position[1][1]==2&&position[2][1]==2)||
                     (position[0][2]==2&&position[1][2]==2&&position[2][2]==2)||
@@ -260,8 +273,9 @@ int main()
                 }
             }
             break;
+            //.... For high score menu.............
             case 2:
-                highsc();
+                highsc();//.....Showing data........
                 M: ret_menu();
                 scanf("%c",&t);
                 system("cls");
@@ -279,9 +293,10 @@ int main()
                     goto M;
                 }
                 break;
+                //........Setting menu............
             case 3:
                 system("cls");
-                system(chr);
+                system(*chr);//......changing color.......
                  system("cls");
                  printf("\n\n\n\n\n\t\t\t   ************************\n");
                  printf("\t\t\t   ************************\n");
@@ -293,112 +308,112 @@ int main()
                  printf("\t\t\t   ************************\n");
                  printf("\t\t\t   ************************\n");
                  int x2;
-     printf("\t\t\t    Choose your Options :");
-     scanf("%d",&x2);
-     if(x2==1)
-     {
-          system("cls");
-     printf("\n\n\n\n\n\t\t\t   ************************\n");
-     printf("\t\t\t   ************************\n");
-     printf("\t\t\t   *                      *\n");
-     printf("\t\t\t   *  1. Black & White    *\n");
-     printf("\t\t\t   *  2. Green            *\n");
-     printf("\t\t\t   *  3. Blue(Default)    *\n");
-     printf("\t\t\t   *  4. Light yellow     *\n");
-     printf("\t\t\t   *                      *\n");
-     printf("\t\t\t   ************************\n");
-     printf("\t\t\t   ************************\n");
-     int select;
-     scanf("%d",&select);
-     switch (select)
-     {
-     case 1:
-         //getchar();
-        *chr="COLOR 07";
-        system(*chr);
-        SET: ret_menu();
-                scanf("%c",&t);
-                system("cls");
-                if(t==49)
-                {
-                    menu_item=menu();
-                    goto X;
-                }
-                else if(t==50)
-                    Exit();
-                else
-                {
-                    system("cls");
-                    goto SET;
-                }
-        break;
-     case 2:
-        *chr="COLOR 2A";
-        system(*chr);
-        SET2: ret_menu();
-                scanf("%c",&t);
-                system("cls");
-                if(t==49)
-                {
-                    menu_item=menu();
-                    goto X;
-                }
-                else if(t==50)
-                    Exit();
-                else
-                {
+                 printf("\t\t\t    Choose your Options :");
+                 scanf("%d",&x2);
+                 //.........Theme Color Change.........
+                 if(x2==1)
+                 {
+                     system("cls");
+                     printf("\n\n\n\n\n\t\t\t   ************************\n");
+                     printf("\t\t\t   ************************\n");
+                     printf("\t\t\t   *                      *\n");
+                     printf("\t\t\t   *  1. Black & White    *\n");
+                     printf("\t\t\t   *  2. Green            *\n");
+                     printf("\t\t\t   *  3. Blue(Default)    *\n");
+                     printf("\t\t\t   *  4. Light yellow     *\n");
+                     printf("\t\t\t   *                      *\n");
+                     printf("\t\t\t   ************************\n");
+                     printf("\t\t\t   ************************\n");
+                     int select;
+                     scanf("%d",&select);
+                     //..Selecting color to apply as theme.........
+                     switch (select)
+                     {
+                        case 1:
+                             //getchar();
+                            *chr="COLOR 07";//....changing color code.......
+                            system(*chr);
+                            SET: ret_menu();
+                            scanf("%c",&t);
+                            system("cls");
+                            if(t==49)
+                            {
+                                menu_item=menu();
+                                goto X;
+                            }
+                            else if(t==50)
+                                Exit();
+                            else
+                            {
+                                system("cls");
+                                goto SET;
+                            }
+                            break;
+                     case 2:
+                        *chr="COLOR 2A";
+                        system(*chr);
+                        SET2: ret_menu();
+                        scanf("%c",&t);
+                        system("cls");
+                        if(t==49)
+                        {
+                            menu_item=menu();
+                            goto X;
+                        }
+                        else if(t==50)
+                            Exit();
+                        else
+                        {
 
-                    system("cls");
-                    goto SET2;
+                            system("cls");
+                            goto SET2;
+                        }
+                        break;
+                     case 3:
+                        *chr ="COLOR 1A";
+                        system(*chr);
+                        SET3: ret_menu();
+                        scanf("%c",&t);
+                        system("cls");
+                        if(t==49)
+                        {
+                            menu_item=menu();
+                            goto X;
+                        }
+                        else if(t==50)
+                            Exit();
+                        else
+                        {
+
+                            system("cls");
+                            goto SET3;
+                        }
+                        break;
+                     case 4:
+                        system("cls");
+                        *chr = "COLOR E3";
+                        system(*chr);
+                        SET4: ret_menu();
+                        scanf("%c",&t);
+                        system("cls");
+                        if(t==49)
+                        {
+                            menu_item=menu();
+                            goto X;
+                        }
+                        else if(t==50)
+                            Exit();
+                        else
+                        {
+
+                            system("cls");
+                            goto SET4;
+                        }
+                        break;
+                     }
                 }
-        break;
-     case 3:
-        *chr ="COLOR 1A";
-        system(*chr);
-        SET3: ret_menu();
-        scanf("%c",&t);
-        system("cls");
-        if(t==49)
-        {
-            menu_item=menu();
-            goto X;
-        }
-        else if(t==50)
-            Exit();
-        else
-        {
-
-            system("cls");
-            goto SET3;
-        }
-break;
-     case 4:
-          system("cls");
-
-        *chr = "COLOR E3";
-        system(*chr);
-        SET4: ret_menu();
-                scanf("%c",&t);
-                system("cls");
-                if(t==49)
-                {
-                    menu_item=menu();
-                    goto X;
-                }
-                else if(t==50)
-                    Exit();
-                else
-                {
-
-                    system("cls");
-                    goto SET4;
-                }
-        break;
-     }
-     }
-
-
                 break;
+                //.......TODO.......
             case 4:
                 loading();
                 system("cls");
@@ -462,6 +477,7 @@ break;
                     goto N;
                 }
                 break;
+                //.........Exiting From Game...........
             case 7:
                 system("cls");
                 Exit();
@@ -475,7 +491,6 @@ break;
     }
     return 0;
 }
-
 
 
 
@@ -493,17 +508,17 @@ int menu()
     printf("\n\n\t\t\t  ..WELCOME TO GUTI-BAJ..\n");
     printf("\n\n");
     printf("\t\t\t  ******* M E N U *******\n");
-    printf("\t\t\t  %c                     %c\n",177,177);
-    printf("\t\t\t  %c   1. New Game       %c\n",177,177);
-    printf("\t\t\t  %c   2. High Score     %c\n",177,177);
-    printf("\t\t\t  %c   3. Settings       %c\n",177,177);
-    printf("\t\t\t  %c   4. Account        %c\n",177,177);
-    printf("\t\t\t  %c   5. Instructions   %c\n",177,177);
-    printf("\t\t\t  %c   6. About          %c\n",177,177);
-    printf("\t\t\t  %c   7. Exit           %c\n",177,177);
-    printf("\t\t\t  %c                     %c\n",177,177);
-    printf("\t\t\t  %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-    printf("\t\t\t  %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+    printf("\t\t\t  %c                     %c\n",c,c);
+    printf("\t\t\t  %c   1. New Game       %c\n",c,c);
+    printf("\t\t\t  %c   2. High Score     %c\n",c,c);
+    printf("\t\t\t  %c   3. Settings       %c\n",c,c);
+    printf("\t\t\t  %c   4. Account        %c\n",c,c);
+    printf("\t\t\t  %c   5. Instructions   %c\n",c,c);
+    printf("\t\t\t  %c   6. About          %c\n",c,c);
+    printf("\t\t\t  %c   7. Exit           %c\n",c,c);
+    printf("\t\t\t  %c                     %c\n",c,c);
+    printf("\t\t\t  %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
+    printf("\t\t\t  %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
     printf("\t\t\t  Choose your option : ");
     scanf("%d",&menu);
 
@@ -894,7 +909,7 @@ void logo()
     Sleep(2500);
     system("cls");
 }
-
+//....This function is for using set color from windows header file..........
 void SetColor(int ForgC)
 {
      WORD wColor;
@@ -948,13 +963,13 @@ void record(char player1[20],char player2[20])
 
 void ret_menu()
 {
-    printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-    printf("\t\t\t   %c                      %c\n",177,177);
-    printf("\t\t\t   %c  1. Return Main Menu %c\n",177,177);
-    printf("\t\t\t   %c                      %c\n",177,177);
-    printf("\t\t\t   %c  2. Exit             %c\n",177,177);
-    printf("\t\t\t   %c                      %c\n",177,177);
-    printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+    printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
+    printf("\t\t\t   %c                      %c\n",c,c);
+    printf("\t\t\t   %c  1. Return Main Menu %c\n",c,c);
+    printf("\t\t\t   %c                      %c\n",c,c);
+    printf("\t\t\t   %c  2. Exit             %c\n",c,c);
+    printf("\t\t\t   %c                      %c\n",c,c);
+    printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
     printf("\n");
     printf("\t\t\t    Choose your Options :");
 }
@@ -962,13 +977,13 @@ void ret_menu()
 
 void do_you_save()
 {
-    printf("\n\n\n\n\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
-    printf("\t\t\t   %c                                %c\n",177,177);
-    printf("\t\t\t   %c Do you want to save your data? %c\n",177,177);
-    printf("\t\t\t   %c                                %c\n",177,177);
-    printf("\t\t\t   %c       1. Yes       2.No        %c\n",177,177);
-    printf("\t\t\t   %c                                %c\n",177,177);
-    printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177);
+    printf("\n\n\n\n\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
+    printf("\t\t\t   %c                                %c\n",c,c);
+    printf("\t\t\t   %c Do you want to save your data? %c\n",c,c);
+    printf("\t\t\t   %c                                %c\n",c,c);
+    printf("\t\t\t   %c       1. Yes       2.No        %c\n",c,c);
+    printf("\t\t\t   %c                                %c\n",c,c);
+    printf("\t\t\t   %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c,c);
     printf("\t\t\t         Choose your option: ");
 }
 
