@@ -5,11 +5,11 @@
 #include <time.h>
 #include <windows.h>
 
-int c=177;
-int d=167;
-int p1_color=10,p2_color=3,blank_color=22;
+int c=177;//For boarder
+int d=167;// For Boarder
+int p1_color=10,p2_color=3,blank_color=22;//.....Pawns color........
 int color;
-char *chr[9];
+char *chr[9];//...........Theme Color..........
 
 void do_you_save();
 void error();
